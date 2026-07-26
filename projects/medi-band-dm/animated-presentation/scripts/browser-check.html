@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<body>
+<iframe id="deck-frame" src="../index.html?preview=1#slide-1" width="1366" height="768"></iframe>
+<script>
+  const pause = duration => new Promise(resolve => setTimeout(resolve, duration));
+  const results = {};
+  const frame = document.getElementById('deck-frame');
+
+  frame.addEventListener('load', async () => {
+    if (frame.dataset.running) return;
+    frame.dataset.running = 'true';
+    await pause(300);
+    const win = frame.contentWindow;
+    const doc = frame.contentDocument;
+    const key = value => doc.dispatchEvent(new KeyboardEvent('keydown', { key: value, bubbles: true }));
+    const getSlide = () => win.location.hash;
+    const setViewport = async (width, height) => {
+      frame.width = width;
+      frame.height = height;
+      win.dispatchEvent(new Event('resize'));
+      await pause(40);
+      const rect = doc.getElementById('deck').getBoundingClientRect();
+      return {
+        viewport: `${width}x${height}`,
+        deck: `${Math.round(rect.width)}x${Math.round(rect.height)}`,
+        contained: rect.width <= width + 1 && rect.height <= height + 1,
+        ratio: Number((rect.width / rect.height).toFixed(3))
+      };
+    };
+    const clickDeck = async relativeX => {
+      const deck = doc.getElementById('deck');
+      const rect = deck.getBoundingClientRect();
+      deck.dispatchEvent(new MouseEvent('click', {
+        bubbles: true,
+        clientX: rect.left + rect.width * relativeX,
+        clientY: rect.top + rect.height / 2
+      }));
+      await pause(30);
+    };
+    const swipeDeck = async (startX, endX) => {
+      const deck = doc.getElementById('deck');
+      const dispatchTouch = (type, x) => {
+        const event = new Event(type, { bubbles: true });
+        Object.defineProperty(event, 'changedTouches', { value: [{ clientX: x, clientY: 200 }] });
+        deck.dispatchEvent(event);
+      };
+      dispatchTouch('touchstart', startX);
+      dispatchTouch('touchend', endX);
+      await pause(30);
+    };
+
+    results.slideCount = doc.querySelectorAll('.slide').length;
+    const images = [...doc.querySelectorAll('img[src*="smart-pill-band-master-reference-v3.webp"]')];
+    results.masterImages = images.length;
+    results.masterDecoded = images.every(image => image.complete && image.naturalWidth > 0 && image.naturalHeight > 0);
+    results.masterDimensions = images.length ? `${images[0].naturalWidth}x${images[0].naturalHeight}` : 'missing';
+    results.externalResources = performance.getEntriesByType('resource').map(entry => entry.name).filter(name => /^https?:/i.test(name));
+
+    const primarySelectors = [
+      '.team-intro p','.member-card p','.background-grid p','.takeaway','.stat-main > p','.one-nine p',
+      '.problem-item p','.primary-user h3','.stakeholder p','.inclusive-note strong','.inclusive-note span','.principle-grid p','.principle-line',
+      '.offline-banner','.component-card p','.five-flow p','.flow-detail p','.scenario-track p','.critical-note',
+      '.process-grid p','.process-status','.evaluation-layout li','.limits-panel p','.benefits p','.final-line p'
+    ].join(',');
+    const primaryText = [...doc.querySelectorAll(primarySelectors)];
+    results.primaryTextMinimumPx = Math.min(...primaryText.map(node => parseFloat(win.getComputedStyle(node).fontSize)));
+    results.primaryTextBelow28 = primaryText.filter(node => parseFloat(win.getComputedStyle(node).fontSize) < 28).map(node => `${node.className || node.tagName}:${win.getComputedStyle(node).fontSize}`);
+
+    key('ArrowRight'); await pause(50); results.arrowRight = getSlide() === '#slide-2';
+    key('PageDown'); await pause(50); results.pageDown = getSlide() === '#slide-3';
+    key('PageUp'); await pause(50); results.pageUp = getSlide() === '#slide-2';
+    key(' '); await pause(50); results.space = getSlide() === '#slide-3';
+    key('End'); await pause(50); results.end = getSlide() === '#slide-15';
+    key('Home'); await pause(50); results.home = getSlide() === '#slide-1';
+    await clickDeck(.8); results.clickNext = getSlide() === '#slide-2';
+    await clickDeck(.2); results.clickPrevious = getSlide() === '#slide-1';
+    await swipeDeck(700, 560); results.touchSwipeNext = getSlide() === '#slide-2';
+    await swipeDeck(560, 700); results.touchSwipePrevious = getSlide() === '#slide-1';
+    doc.getElementById('deck').classList.remove('ui-hidden');
+    key('h'); await pause(20); results.hideControls = doc.getElementById('deck').classList.contains('ui-hidden');
+    key('h'); await pause(20);
+    doc.documentElement.requestFullscreen = () => { results.fullscreenRequested = true; return Promise.resolve(); };
+    doc.getElementById('fullscreen').click(); await pause(30);
+    win.location.hash = '#slide-11'; await pause(80);
+    const beforeControl = getSlide();
+    doc.querySelector('[data-flow-next]').click(); await pause(30);
+    results.appControlNoAdvance = getSlide() === beforeControl;
+    results.reducedMotion = win.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    results.viewports = [
+      await setViewport(1366, 768),
+      await setViewport(1920, 1080),
+      await setViewport(844, 390)
+    ];
+    results.viewportLayouts = results.viewports.every(item => item.contained && item.ratio === 1.779);
+
+    document.body.textContent = JSON.stringify(results);
+  });
+</script>
+</body>
+</html>
