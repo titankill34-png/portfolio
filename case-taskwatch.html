@@ -3,103 +3,195 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#060B14">
 <title>สร้างระบบ AI ที่ส่งงานได้จากมือถือ</title>
 <style>
   :root {
     color-scheme: dark;
+    --text-heading: #F2F6FF;
+    --text-body: rgba(226, 235, 250, 0.80);
+    --text-secondary: rgba(226, 235, 250, 0.48);
+    --accent: #60A5FA;
   }
   * {
     box-sizing: border-box;
   }
-  body {
+  html, body {
     margin: 0;
-    padding: 2rem 1.25rem 3rem;
-    background: #0b0b0b;
-    color: #f2f2f2;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    line-height: 1.75;
-    display: flex;
-    justify-content: center;
+    padding: 0;
   }
-  article {
+  body {
+    background-color: #060B14;
+    background-image:
+      radial-gradient(ellipse at 20% 0%, rgba(37, 99, 235, 0.28), transparent 60%),
+      radial-gradient(ellipse at 85% 100%, rgba(96, 165, 250, 0.16), transparent 55%);
+    color: var(--text-body);
+    font-family: system-ui, sans-serif;
+    line-height: 1.75;
+  }
+  .page {
     width: 100%;
     max-width: 640px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
   }
+  .card {
+    background: rgba(255, 255, 255, 0.055);
+    backdrop-filter: blur(28px) saturate(150%);
+    -webkit-backdrop-filter: blur(28px) saturate(150%);
+    border: 1px solid rgba(255, 255, 255, 0.11);
+    border-radius: 24px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.42), inset 0 1px 0 rgba(255, 255, 255, 0.09);
+    padding: 24px;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    width: fit-content;
+    font-size: 13px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 200ms ease;
+  }
+  .back-link:hover {
+    color: var(--accent);
+  }
+
   h1 {
+    margin: 0;
     font-size: 1.6rem;
-    margin: 0 0 1.5rem;
     letter-spacing: 0.01em;
+    color: var(--text-heading);
   }
   h2 {
+    margin: 0 0 14px;
     font-size: 1.05rem;
-    margin: 2rem 0 0.75rem;
-    color: #e8e8e8;
+    color: var(--text-heading);
   }
   p {
     margin: 0 0 1rem;
-    color: #d8d8d8;
+    max-width: 68ch;
   }
-  ol, ul {
-    margin: 0 0 1rem;
-    padding-left: 1.3rem;
-    color: #d8d8d8;
-  }
-  li {
-    margin-bottom: 0.6rem;
+  p:last-child {
+    margin-bottom: 0;
   }
   strong {
-    color: #ffffff;
+    color: var(--text-heading);
   }
-  .metric {
-    border: 1px solid #333;
-    border-radius: 8px;
-    padding: 1rem 1.2rem;
-    margin: 1.5rem 0;
-    color: #f2f2f2;
+
+  .metric-value {
+    margin: 0 0 8px;
+    font-size: clamp(40px, 11vw, 60px);
+    font-weight: 700;
+    line-height: 1;
+    color: var(--accent);
   }
-  footer {
-    margin-top: 2.5rem;
-    border-top: 1px solid #2a2a2a;
-    padding-top: 1.5rem;
+  .metric-caption {
+    margin: 0;
+    font-size: 12px;
+    color: var(--text-secondary);
+    max-width: 68ch;
   }
+
+  .problem-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .problem-card {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .problem-num {
+    flex-shrink: 0;
+    font-family: ui-monospace, monospace;
+    font-size: 13px;
+    color: var(--accent);
+    padding-top: 2px;
+  }
+  .problem-text {
+    margin: 0;
+    max-width: 68ch;
+  }
+
   footer a {
-    color: #f2f2f2;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--text-body);
     text-decoration: none;
-    border-bottom: 1px solid #555;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.18);
     padding-bottom: 2px;
+    transition: border-color 200ms ease;
   }
   footer a:hover {
-    border-bottom-color: #f2f2f2;
+    border-bottom-color: var(--accent);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      transition: none !important;
+    }
   }
 </style>
 </head>
 <body>
-<article>
-  <h1>สร้างระบบ AI ที่ส่งงานได้จากมือถือ</h1>
+<div class="page">
+  <a class="back-link" href="index.html">&larr; กลับหน้าแรก</a>
 
-  <p>ข้อจำกัดตั้งต้นคือมีแค่มือถือ Android เครื่องเดียว ไม่มีคอมพิวเตอร์ให้ใช้ คำถามจึงไม่ใช่ "จะสร้างอะไร" แต่คือ "จะทำงานเขียนโค้ดให้เสร็จได้อย่างไรในข้อจำกัดนี้"</p>
-
-  <p>คำตอบคือรันทุกอย่างบน Termux แล้วใช้ Claude Code เป็น worker ที่ทำงานเขียนโค้ดจริง ส่วน GitHub Issues ทำหน้าที่เป็นคิวงาน เปิด issue แล้วติด label งานก็จะถูก watcher หยิบไปทำเองโดยอัตโนมัติ</p>
-
-  <div class="metric">
-    วัดได้จริง: จากเปิด issue ถึงได้ pull request ใช้เวลา 52 วินาที
+  <div class="card">
+    <h1>สร้างระบบ AI ที่ส่งงานได้จากมือถือ</h1>
   </div>
 
-  <h2>ปัญหาที่เจอ และวิธีแก้</h2>
-  <ol>
-    <li><strong>Claude Code เวอร์ชันใหม่ไม่มี binary สำหรับ Android</strong> — ต้องล็อกเวอร์ชันไว้ที่ 2.1.112 เพื่อให้ยังรันได้บนอุปกรณ์นี้</li>
-    <li><strong>โควตาหมดกลางงาน</strong> — แก้ด้วยการแยกเคส "โควตาหมด" ออกจาก "งานล้มเหลว" ให้ชัดเจน แล้วคืนงานนั้นเข้าคิว รอลองใหม่เองโดยไม่ต้องสั่งซ้ำ</li>
-    <li><strong>watcher หลายตัวแย่งเขียน repo เดียวกัน</strong> — แก้ด้วย lock file หนึ่งตัวต่อหนึ่ง repo ป้องกันการชนกัน</li>
-    <li><strong>ไฟล์สถานะถูกเขียนลง branch ที่ worker กำลังทำงานอยู่</strong> — แก้ด้วยการเขียนสถานะผ่าน GitHub API ตรงเข้า main แทนที่จะ commit ลง branch งาน</li>
-  </ol>
+  <div class="card">
+    <p>ข้อจำกัดตั้งต้นคือมีแค่มือถือ Android เครื่องเดียว ไม่มีคอมพิวเตอร์ให้ใช้ คำถามจึงไม่ใช่ "จะสร้างอะไร" แต่คือ "จะทำงานเขียนโค้ดให้เสร็จได้อย่างไรในข้อจำกัดนี้"</p>
+    <p>คำตอบคือรันทุกอย่างบน Termux แล้วใช้ Claude Code เป็น worker ที่ทำงานเขียนโค้ดจริง ส่วน GitHub Issues ทำหน้าที่เป็นคิวงาน เปิด issue แล้วติด label งานก็จะถูก watcher หยิบไปทำเองโดยอัตโนมัติ</p>
+  </div>
 
-  <p>ระบบนี้ต้องรอดจากการที่เครื่องรีบูตเองได้ด้วย จึงใช้ tmux คู่กับ Termux:Boot เพื่อให้ session กลับมาทำงานต่อได้โดยไม่ต้องเปิดเองใหม่ทุกครั้ง</p>
+  <div class="card">
+    <p class="metric-value">52 วินาที</p>
+    <p class="metric-caption">วัดได้จริง: จากเปิด issue ถึงได้ pull request ใช้เวลา 52 วินาที</p>
+  </div>
 
-  <p>สิ่งที่ได้จากงานนี้คือตัวระบบเอง ไม่ใช่สิ่งที่มันสร้างขึ้นมา</p>
+  <div class="card">
+    <h2>ปัญหาที่เจอ และวิธีแก้</h2>
+    <ol class="problem-list">
+      <li class="problem-card">
+        <span class="problem-num">01</span>
+        <p class="problem-text"><strong>Claude Code เวอร์ชันใหม่ไม่มี binary สำหรับ Android</strong> — ต้องล็อกเวอร์ชันไว้ที่ 2.1.112 เพื่อให้ยังรันได้บนอุปกรณ์นี้</p>
+      </li>
+      <li class="problem-card">
+        <span class="problem-num">02</span>
+        <p class="problem-text"><strong>โควตาหมดกลางงาน</strong> — แก้ด้วยการแยกเคส "โควตาหมด" ออกจาก "งานล้มเหลว" ให้ชัดเจน แล้วคืนงานนั้นเข้าคิว รอลองใหม่เองโดยไม่ต้องสั่งซ้ำ</p>
+      </li>
+      <li class="problem-card">
+        <span class="problem-num">03</span>
+        <p class="problem-text"><strong>watcher หลายตัวแย่งเขียน repo เดียวกัน</strong> — แก้ด้วย lock file หนึ่งตัวต่อหนึ่ง repo ป้องกันการชนกัน</p>
+      </li>
+      <li class="problem-card">
+        <span class="problem-num">04</span>
+        <p class="problem-text"><strong>ไฟล์สถานะถูกเขียนลง branch ที่ worker กำลังทำงานอยู่</strong> — แก้ด้วยการเขียนสถานะผ่าน GitHub API ตรงเข้า main แทนที่จะ commit ลง branch งาน</p>
+      </li>
+    </ol>
+  </div>
+
+  <div class="card">
+    <p>ระบบนี้ต้องรอดจากการที่เครื่องรีบูตเองได้ด้วย จึงใช้ tmux คู่กับ Termux:Boot เพื่อให้ session กลับมาทำงานต่อได้โดยไม่ต้องเปิดเองใหม่ทุกครั้ง</p>
+    <p>สิ่งที่ได้จากงานนี้คือตัวระบบเอง ไม่ใช่สิ่งที่มันสร้างขึ้นมา</p>
+  </div>
 
   <footer>
     <a href="index.html">&larr; กลับหน้าแรก</a>
   </footer>
-</article>
+</div>
 </body>
 </html>
