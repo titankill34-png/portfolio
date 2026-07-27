@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#050a12">
+  <title>Deck Starter — 3-slide template</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main id="deck" class="deck" aria-label="งานนำเสนอตัวอย่าง จำนวน 3 สไลด์">
+    <!-- สไลด์ 1: ปก — แก้หัวข้อ/คำโปรย/แท็กไลน์ตรงนี้ -->
+    <section class="slide slide-cover is-active" data-title="หัวข้อสไลด์ที่นี่" aria-hidden="false">
+      <div class="mesh" aria-hidden="true"></div>
+      <div class="cover-copy">
+        <p class="eyebrow" data-reveal>หมวดหมู่ / วันที่ · 2026</p>
+        <h1 data-reveal>หัวข้อสไลด์<br><span>ที่นี่</span></h1>
+        <p class="cover-subtitle" data-reveal>คำโปรยสั้น ๆ อธิบายหัวข้อ</p>
+        <div class="tagline" data-reveal><i aria-hidden="true"></i>ประโยคแท็กไลน์สั้น ๆ ตรงนี้</div>
+      </div>
+      <!-- ตำแหน่งใส่รูป: แทนที่กล่องนี้ด้วย <img src="assets/ชื่อไฟล์รูป.webp" alt="คำอธิบายรูป"> -->
+      <figure class="image-slot" data-reveal>
+        <p>ใส่รูปที่นี่<br><small>assets/ชื่อไฟล์รูป.webp</small></p>
+      </figure>
+      <p class="slide-foot">ข้อความท้ายสไลด์ ตรงนี้</p>
+    </section>
+
+    <!-- สไลด์ 2: สถิติตัวเลขใหญ่ — แก้ตัวเลขและป้ายกำกับตรงนี้ -->
+    <section class="slide slide-stats" data-title="หัวข้อสไลด์สถิติที่นี่" aria-hidden="true">
+      <header class="slide-header light">
+        <div><p class="eyebrow" data-reveal>ที่มาของข้อมูล ตรงนี้</p><h2 data-reveal>หัวข้อสไลด์สถิติที่นี่</h2></div>
+        <span class="section-number">02</span>
+      </header>
+      <div class="stats-layout">
+        <article class="stat-main" data-reveal>
+          <p>คำอธิบายตัวเลขหลักตรงนี้</p>
+          <strong><span class="count-up" data-value="100" data-decimals="0">100</span><small>หน่วยตรงนี้</small></strong>
+        </article>
+        <div class="stat-thai">
+          <article data-reveal><p>ป้ายกำกับที่ 1</p><strong><span class="count-up" data-value="42" data-decimals="0">42</span><small>หน่วย</small></strong><span>คำอธิบายเพิ่มเติม</span></article>
+          <article data-reveal><p>ป้ายกำกับที่ 2</p><strong><span class="count-up" data-value="7.5" data-decimals="1">7.5</span><small>%</small></strong><span>คำอธิบายเพิ่มเติม</span></article>
+        </div>
+      </div>
+      <footer class="citation">แหล่งอ้างอิงข้อมูล ใส่ตรงนี้</footer>
+    </section>
+
+    <!-- สไลด์ 3: เนื้อหาแบบ grid — เพิ่ม/ลด <article> เพื่อเปลี่ยนจำนวนช่อง -->
+    <section class="slide slide-grid" data-title="หัวข้อสไลด์เนื้อหาที่นี่" aria-hidden="true">
+      <header class="slide-header light">
+        <div><p class="eyebrow" data-reveal>หมวดหมู่ย่อย ตรงนี้</p><h2 data-reveal>หัวข้อสไลด์เนื้อหาที่นี่</h2></div>
+        <span class="section-number">03</span>
+      </header>
+      <div class="content-grid">
+        <article data-reveal><i>○</i><h3>หัวข้อย่อยที่ 1</h3><p>คำอธิบายสั้น ๆ ของหัวข้อย่อยที่ 1</p></article>
+        <article data-reveal><i>✓</i><h3>หัวข้อย่อยที่ 2</h3><p>คำอธิบายสั้น ๆ ของหัวข้อย่อยที่ 2</p></article>
+        <article data-reveal><i>＋</i><h3>หัวข้อย่อยที่ 3</h3><p>คำอธิบายสั้น ๆ ของหัวข้อย่อยที่ 3</p></article>
+      </div>
+    </section>
+
+    <nav class="presenter-ui" aria-label="ตัวควบคุมงานนำเสนอ" data-no-nav>
+      <button id="toggle-ui" type="button" title="ซ่อนตัวควบคุม (H)" aria-label="ซ่อนตัวควบคุม">×</button>
+      <button id="prev-slide" type="button" aria-label="สไลด์ก่อนหน้า">←</button>
+      <div class="slide-status"><span id="current-slide">01</span><i></i><span>3</span></div>
+      <button id="next-slide" type="button" aria-label="สไลด์ถัดไป">→</button>
+      <button id="fullscreen" type="button" title="เต็มหน้าจอ (F)" aria-label="เปิดเต็มหน้าจอ">⛶</button>
+    </nav>
+    <button class="ui-restore" id="restore-ui" type="button" aria-label="แสดงตัวควบคุม" data-no-nav>•••</button>
+    <div class="progress-track" aria-hidden="true"><i id="progress-bar"></i></div>
+    <div class="sr-only" aria-live="polite" id="slide-announcer"></div>
+  </main>
+  <noscript>งานนำเสนอนี้ต้องเปิด JavaScript เพื่อใช้การนำทางและภาพเคลื่อนไหว</noscript>
+  <script src="app.js"></script>
+</body>
+</html>
