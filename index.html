@@ -3,223 +3,386 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#060B14">
+<meta name="theme-color" content="#0A0A0B">
 <title>Sittichok kakandee</title>
 <style>
   :root {
     color-scheme: dark;
-    --text-heading: #F2F6FF;
-    --text-body: rgba(226, 235, 250, 0.80);
-    --text-secondary: rgba(226, 235, 250, 0.48);
-    --accent: #60A5FA;
+    --bg: #0A0A0B;
+    --stage: #161618;
+    --card: #1E1E21;
+    --lime: #C6F432;
+    --blue: #2B5CFF;
+    --text: #F5F5F4;
+    --text-secondary: rgba(245, 245, 244, 0.55);
   }
-  * {
-    box-sizing: border-box;
-  }
-  html, body {
-    margin: 0;
-    padding: 0;
-  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; overflow-x: hidden; }
   body {
-    background-color: #060B14;
-    background-image:
-      radial-gradient(ellipse at 20% 0%, rgba(37, 99, 235, 0.28), transparent 60%),
-      radial-gradient(ellipse at 85% 100%, rgba(96, 165, 250, 0.16), transparent 55%);
-    color: var(--text-body);
+    background: var(--bg);
+    color: var(--text);
     font-family: system-ui, sans-serif;
     line-height: 1.6;
   }
-  .page {
-    width: 100%;
-    max-width: 460px;
-    margin: 0 auto;
-    padding: 20px;
+  .stage {
+    max-width: 1120px;
+    margin: 12px auto;
+    background: var(--stage);
+    border-radius: 28px;
+    padding: 24px 16px;
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 24px;
   }
-  .card {
-    background: rgba(255, 255, 255, 0.055);
-    backdrop-filter: blur(28px) saturate(150%);
-    -webkit-backdrop-filter: blur(28px) saturate(150%);
-    border: 1px solid rgba(255, 255, 255, 0.11);
-    border-radius: 24px;
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.42), inset 0 1px 0 rgba(255, 255, 255, 0.09);
-    padding: 24px;
-  }
-  .card--hero {
-    padding: 16px;
+  @media (min-width: 780px) {
+    .stage { padding: 40px 48px; gap: 36px; }
   }
 
-  .badge {
-    margin: 0 0 12px;
-    text-transform: uppercase;
-    font-size: 10px;
-    letter-spacing: 0.22em;
-    color: var(--accent);
-  }
-  h1 {
-    margin: 0 0 4px;
-    font-size: clamp(26px, 7vw, 40px);
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    color: var(--text-heading);
-    white-space: nowrap;
-  }
-  .tagline {
-    margin: 0;
-    font-size: 15px;
-    color: var(--text-secondary);
-  }
-
-  .work-card {
+  .topbar {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 16px;
-    text-decoration: none;
-    color: inherit;
-    transition: border-color 200ms ease, transform 200ms ease;
+    gap: 10px;
   }
-  .work-card:hover {
-    border-color: rgba(96, 165, 250, 0.42);
-    transform: translateY(-2px);
+  .wordmark {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 800;
+    font-size: clamp(15px, 4vw, 20px);
+    letter-spacing: -0.01em;
+    white-space: nowrap;
   }
-  .work-body {
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--lime); flex-shrink: 0; }
+  .badge-available {
+    background: var(--lime);
+    color: #0A0A0B;
+    font-weight: 800;
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    padding: 6px 12px;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  @media (min-width: 780px) {
+    .hero { grid-template-columns: 1.1fr 1fr; align-items: center; gap: 40px; }
+  }
+  h1 {
+    margin: 0;
+    font-weight: 800;
+    font-size: clamp(34px, 9vw, 56px);
+    letter-spacing: -0.02em;
+    line-height: 1.06;
+    color: var(--text);
+  }
+  .accent { color: var(--lime); }
+  .hero-desc {
+    margin: 16px 0 0;
+    font-size: 15px;
+    max-width: 42ch;
+    color: var(--text-secondary);
+  }
+
+  .hero-visual {
+    position: relative;
+    background: #101012;
+    border-radius: 22px;
+    min-height: 260px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: 24px;
+  }
+  .grid-lines {
+    position: absolute;
+    inset: 0;
+    background-image:
+      repeating-linear-gradient(to right, rgba(198, 244, 50, 0.08) 0 1px, transparent 1px 24px),
+      repeating-linear-gradient(to bottom, rgba(198, 244, 50, 0.08) 0 1px, transparent 1px 24px);
+  }
+  .glow {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 220px;
+    height: 220px;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle, rgba(198, 244, 50, 0.35), transparent 70%);
+    filter: blur(40px);
+    opacity: 0.8;
+    border-radius: 50%;
+  }
+  .terminal {
+    position: relative;
+    z-index: 1;
+    width: min(100%, 300px);
+    background: #0A0A0B;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45);
+    overflow: hidden;
+  }
+  .terminal-dots {
+    display: flex;
+    gap: 6px;
+    padding: 10px 12px;
+    background: rgba(255, 255, 255, 0.03);
+  }
+  .terminal-dots span { width: 9px; height: 9px; border-radius: 50%; }
+  .terminal-dots span:nth-child(1) { background: #FF5F56; }
+  .terminal-dots span:nth-child(2) { background: #FFBD2E; }
+  .terminal-dots span:nth-child(3) { background: #27C93F; }
+  .terminal-body {
+    padding: 14px 16px 18px;
+    font-family: ui-monospace, monospace;
+    font-size: 12px;
+    color: var(--lime);
     display: flex;
     flex-direction: column;
-    gap: 4px;
-    min-width: 0;
+    gap: 8px;
+    min-height: 70px;
   }
-  .work-num {
-    font-family: ui-monospace, monospace;
-    font-size: 11px;
-    color: var(--text-secondary);
+  .term-line {
+    overflow: hidden;
+    white-space: nowrap;
+    width: 0;
+    animation: typeLine 9s ease-in-out infinite;
   }
-  .work-title {
-    font-size: 17px;
-    font-weight: 600;
-    color: var(--text-heading);
-  }
-  .work-desc {
-    font-size: 13px;
-    color: var(--text-secondary);
-  }
-  .work-arrow {
-    flex-shrink: 0;
-    color: var(--accent);
-    font-size: 18px;
+  .term-line-1 { --tw: 18ch; animation-delay: 0s; }
+  .term-line-2 { --tw: 11ch; animation-delay: 2.6s; }
+  .term-line-3 { --tw: 13ch; animation-delay: 5.2s; }
+  @keyframes typeLine {
+    0%, 100% { width: 0; }
+    22%, 75% { width: var(--tw); }
+    88% { width: 0; }
   }
 
-  .section-label {
-    margin: 0 0 14px;
-    text-transform: uppercase;
-    font-size: 10px;
-    letter-spacing: 0.22em;
-    color: var(--text-secondary);
-  }
-  .qr-grid {
+  .work-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 14px;
+    grid-template-columns: 1fr;
+    gap: 16px;
   }
-  .qr-box {
-    display: block;
+  @media (min-width: 780px) {
+    .work-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+  .work-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 160px;
+    padding: 20px;
+    border-radius: 22px;
     text-decoration: none;
-    color: inherit;
+    color: var(--text);
+    transition: transform 200ms ease, box-shadow 200ms ease;
   }
-  .qr-white {
-    background: #FFFFFF;
-    border-radius: 16px;
-    padding: 12px;
+  .work-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
   }
-  .qr-white img {
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    object-fit: contain;
-    display: block;
+  .work-card--lime { background: var(--lime); color: #0A0A0B; }
+  .work-card--blue { background: var(--blue); color: #F5F5F4; }
+  .work-card--dark { background: var(--card); border: 1px solid rgba(255, 255, 255, 0.08); }
+  .work-num { font-family: ui-monospace, monospace; font-size: 11px; opacity: 0.7; }
+  .work-body { display: flex; flex-direction: column; gap: 4px; margin-top: 24px; }
+  .work-title { font-weight: 800; font-size: 18px; }
+  .work-desc { font-size: 13px; opacity: 0.8; }
+  .work-arrow { position: absolute; right: 20px; bottom: 20px; font-size: 20px; }
+
+  .bottom-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
   }
-  .qr-label {
-    display: block;
-    margin-top: 8px;
-    font-size: 11px;
-    text-align: center;
+  @media (min-width: 780px) {
+    .bottom-grid { grid-template-columns: 1fr 1.3fr; }
+  }
+  .counter-card, .contact-card {
+    background: var(--card);
+    border-radius: 22px;
+    padding: 24px;
+  }
+  .counter-card { display: flex; flex-direction: column; justify-content: center; gap: 8px; }
+  .counter-num {
+    font-weight: 800;
+    font-size: clamp(48px, 12vw, 72px);
+    line-height: 1;
+    color: var(--lime);
+  }
+  .counter-caption {
+    font-family: ui-monospace, monospace;
+    font-size: 12px;
     color: var(--text-secondary);
   }
-  .github-link {
-    display: block;
-    margin-top: 16px;
+
+  .contact-title {
+    margin: 0 0 14px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    font-size: 11px;
+    color: var(--text-secondary);
+  }
+  .qr-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .qr-box { display: block; text-decoration: none; color: inherit; }
+  .qr-white { background: #FFFFFF; border-radius: 16px; padding: 12px; }
+  .qr-white img { width: 100%; aspect-ratio: 1 / 1; object-fit: contain; display: block; }
+  .qr-label { display: block; margin-top: 8px; font-size: 11px; text-align: center; color: var(--text-secondary); }
+  .pill-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+  .pill {
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 999px;
+    padding: 8px 14px;
     font-size: 13px;
-    color: var(--text-body);
+    color: var(--text);
     text-decoration: none;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.18);
-    padding-bottom: 2px;
-    width: fit-content;
+    transition: background 150ms ease, color 150ms ease;
   }
-  .github-link:hover {
-    border-bottom-color: var(--accent);
+  .pill:hover { background: var(--lime); color: #0A0A0B; }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 500ms ease, transform 500ms ease;
   }
+  .reveal.in-view { opacity: 1; transform: none; }
 
   @media (prefers-reduced-motion: reduce) {
-    * {
-      transition: none !important;
-    }
+    * { animation: none !important; transition: none !important; }
+    .reveal { opacity: 1 !important; transform: none !important; }
   }
 </style>
 </head>
 <body>
-<div class="page">
-  <div class="card card--hero">
-    <p class="badge">PORTFOLIO</p>
-    <h1>Sittichok kakandee</h1>
-    <p class="tagline">ออกแบบงานนำเสนอ และสร้างระบบอัตโนมัติด้วย AI</p>
-  </div>
+<div class="stage">
+  <header class="topbar reveal">
+    <div class="wordmark">SITTICHOK<span class="dot"></span></div>
+    <span class="badge-available">AVAILABLE</span>
+  </header>
 
-  <a class="card work-card" href="projects/medi-band-dm/animated-presentation/">
-    <div class="work-body">
+  <section class="hero">
+    <div class="hero-copy reveal">
+      <h1>ออกแบบงานนำเสนอ<br><span class="accent">และระบบ AI อัตโนมัติ</span></h1>
+      <p class="hero-desc">ทำงานทุกอย่างจากมือถือเครื่องเดียว ตั้งแต่ออกแบบจนถึงระบบอัตโนมัติที่ส่งงานได้จริง</p>
+    </div>
+    <div class="hero-visual reveal">
+      <div class="grid-lines"></div>
+      <div class="glow"></div>
+      <div class="terminal">
+        <div class="terminal-dots"><span></span><span></span><span></span></div>
+        <div class="terminal-body">
+          <div class="term-line term-line-1">issue #13 claimed</div>
+          <div class="term-line term-line-2">building...</div>
+          <div class="term-line term-line-3">PR opened 52s</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="work-grid">
+    <a class="work-card work-card--lime reveal" href="projects/medi-band-dm/animated-presentation/">
       <span class="work-num">01</span>
-      <span class="work-title">Medi-band DM — งานนำเสนอ</span>
-      <span class="work-desc">งานนำเสนอแอนิเมชัน 15 สไลด์</span>
-    </div>
-    <span class="work-arrow">&rarr;</span>
-  </a>
-
-  <a class="card work-card" href="case-taskwatch.html">
-    <div class="work-body">
+      <div class="work-body">
+        <span class="work-title">Medi-band DM</span>
+        <span class="work-desc">งานนำเสนอแอนิเมชัน 15 สไลด์</span>
+      </div>
+      <span class="work-arrow">&rarr;</span>
+    </a>
+    <a class="work-card work-card--blue reveal" href="case-taskwatch.html">
       <span class="work-num">02</span>
-      <span class="work-title">สร้างระบบ AI ที่ส่งงานได้จากมือถือ</span>
-      <span class="work-desc">ระบบ AI ที่ทำงานเองบนมือถือ</span>
-    </div>
-    <span class="work-arrow">&rarr;</span>
-  </a>
-
-  <a class="card work-card" href="projects/portfolio-intro/">
-    <div class="work-body">
+      <div class="work-body">
+        <span class="work-title">ระบบ AI บนมือถือ</span>
+        <span class="work-desc">ส่งงานจริงใน 52 วินาที</span>
+      </div>
+      <span class="work-arrow">&rarr;</span>
+    </a>
+    <a class="work-card work-card--dark reveal" href="projects/portfolio-intro/">
       <span class="work-num">03</span>
-      <span class="work-title">แนะนำตัว</span>
-      <span class="work-desc">งานนำเสนอ 5 สไลด์ สร้างจาก template ที่ทำเอง</span>
-    </div>
-    <span class="work-arrow">&rarr;</span>
-  </a>
+      <div class="work-body">
+        <span class="work-title">แนะนำตัว</span>
+        <span class="work-desc">งานนำเสนอ 5 สไลด์จาก template</span>
+      </div>
+      <span class="work-arrow">&rarr;</span>
+    </a>
+  </section>
 
-  <div class="card">
-    <p class="section-label">CONTACT</p>
-    <div class="qr-grid">
-      <a class="qr-box" href="https://www.instagram.com/taxx.exe_">
-        <div class="qr-white">
-          <img src="assets/qr-instagram.png" alt="คิวอาร์โค้ดสำหรับติดตาม Instagram">
-        </div>
-        <span class="qr-label">Instagram</span>
-      </a>
-      <a class="qr-box" href="https://line.me/ti/p/_257NKsXpE">
-        <div class="qr-white">
-          <img src="assets/qr-line.jpg" alt="คิวอาร์โค้ดสำหรับแอด LINE">
-        </div>
-        <span class="qr-label">LINE</span>
-      </a>
+  <section class="bottom-grid">
+    <div class="counter-card reveal">
+      <span class="counter-num">0s</span>
+      <span class="counter-caption">จากเปิดงานถึงได้ pull request</span>
     </div>
-    <a class="github-link" href="https://github.com/titankill34-png">GitHub</a>
-  </div>
+    <div class="contact-card reveal">
+      <p class="contact-title">CONTACT</p>
+      <div class="qr-grid">
+        <a class="qr-box" href="https://www.instagram.com/taxx.exe_">
+          <div class="qr-white">
+            <img src="assets/qr-instagram.png" alt="คิวอาร์โค้ดสำหรับติดตาม Instagram">
+          </div>
+          <span class="qr-label">Instagram</span>
+        </a>
+        <a class="qr-box" href="https://line.me/ti/p/_257NKsXpE">
+          <div class="qr-white">
+            <img src="assets/qr-line.jpg" alt="คิวอาร์โค้ดสำหรับแอด LINE">
+          </div>
+          <span class="qr-label">LINE</span>
+        </a>
+      </div>
+      <div class="pill-row">
+        <a class="pill" href="https://www.instagram.com/taxx.exe_">Instagram</a>
+        <a class="pill" href="https://line.me/ti/p/_257NKsXpE">LINE</a>
+        <a class="pill" href="https://github.com/titankill34-png">GitHub</a>
+      </div>
+    </div>
+  </section>
 </div>
+<script>
+(function () {
+  var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var reveals = document.querySelectorAll('.reveal');
+  if (reduced) {
+    reveals.forEach(function (el) { el.classList.add('in-view'); });
+  } else {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry, i) {
+        if (entry.isIntersecting) {
+          entry.target.style.transitionDelay = (i * 80) + 'ms';
+          entry.target.classList.add('in-view');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    reveals.forEach(function (el) { io.observe(el); });
+  }
+
+  var counted = false;
+  var counterNum = document.querySelector('.counter-num');
+  var counterCard = document.querySelector('.counter-card');
+  if (counterNum && counterCard) {
+    var cio = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting && !counted) {
+          counted = true;
+          if (reduced) { counterNum.textContent = '52s'; return; }
+          var n = 0;
+          var timer = setInterval(function () {
+            n++;
+            counterNum.textContent = n + 's';
+            if (n >= 52) clearInterval(timer);
+          }, 28);
+        }
+      });
+    }, { threshold: 0.4 });
+    cio.observe(counterCard);
+  }
+})();
+</script>
 </body>
 </html>
