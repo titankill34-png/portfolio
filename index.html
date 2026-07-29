@@ -47,6 +47,9 @@
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.42), inset 0 1px 0 rgba(255, 255, 255, 0.09);
     padding: 24px;
   }
+  .card--hero {
+    padding: 16px;
+  }
 
   .badge {
     margin: 0 0 12px;
@@ -56,11 +59,12 @@
     color: var(--accent);
   }
   h1 {
-    margin: 0 0 10px;
-    font-size: clamp(30px, 8vw, 46px);
+    margin: 0 0 4px;
+    font-size: clamp(26px, 7vw, 40px);
     font-weight: 700;
     letter-spacing: -0.02em;
     color: var(--text-heading);
+    white-space: nowrap;
   }
   .tagline {
     margin: 0;
@@ -165,7 +169,7 @@
 </head>
 <body>
 <div class="page">
-  <div class="card">
+  <div class="card card--hero">
     <p class="badge">PORTFOLIO</p>
     <h1>Sittichok kakandee</h1>
     <p class="tagline">ออกแบบงานนำเสนอ และสร้างระบบอัตโนมัติด้วย AI</p>
