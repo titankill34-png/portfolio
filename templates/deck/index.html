@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#050a12">
+  <title>DECK TEMPLATE — 3-slide starter</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main id="deck" class="deck" aria-label="งานนำเสนอตัวอย่าง จำนวน 3 สไลด์">
+    <section class="slide slide-cover is-active" data-title="หัวข้อสไลด์ที่นี่" aria-hidden="false">
+      <div class="mesh" aria-hidden="true"></div>
+      <div class="cover-copy">
+        <p class="eyebrow" data-reveal>หมวดหมู่ / ปี ใส่ที่นี่</p>
+        <h1 data-reveal>หัวข้อสไลด์<br><span>ที่นี่</span></h1>
+        <p class="cover-subtitle" data-reveal>คำโปรยรองใส่ที่นี่</p>
+        <div class="tagline" data-reveal><i aria-hidden="true"></i>ข้อความสั้นท้ายกลุ่มใส่ที่นี่</div>
+      </div>
+      <figure class="master-hero parallax" data-product-view data-reveal>
+        <div class="halo" aria-hidden="true"></div>
+        <div class="image-placeholder">ใส่รูปที่นี่<br><small>assets/your-image.png</small></div>
+        <figcaption>คำอธิบายรูปใส่ที่นี่</figcaption>
+      </figure>
+      <div class="cover-proof" data-reveal><span>3</span><p>จำนวนสไลด์<br><b>ตัวอย่าง</b></p></div>
+      <p class="slide-foot">ข้อความท้ายสไลด์ (ถ้ามี) ใส่ที่นี่</p>
+    </section>
+
+    <section class="slide slide-stats" data-title="หัวข้อสไลด์สถิติที่นี่" aria-hidden="true">
+      <header class="slide-header light">
+        <div><p class="eyebrow" data-reveal>แหล่งอ้างอิงใส่ที่นี่</p><h2 data-reveal>หัวข้อสไลด์สถิติที่นี่</h2></div>
+        <span class="section-number">02</span>
+      </header>
+      <div class="stats-layout">
+        <article class="stat-main" data-reveal>
+          <p>คำอธิบายตัวเลขหลักใส่ที่นี่</p>
+          <strong><span class="count-up" data-value="100" data-decimals="0">100</span><small>หน่วยใส่ที่นี่</small></strong>
+          <div class="one-nine"><span>สัดส่วนใส่ที่นี่</span><p>คำอธิบายสัดส่วนใส่ที่นี่</p></div>
+        </article>
+        <div class="stat-thai">
+          <article data-reveal><p>หัวข้อย่อยที่นี่</p><strong><span class="count-up" data-value="42" data-decimals="0">42</span><small>หน่วย</small></strong><span>คำอธิบายใส่ที่นี่</span></article>
+          <article data-reveal><p>หัวข้อย่อยที่นี่</p><strong><span class="count-up" data-value="7.5" data-decimals="1">7.5</span><small>%</small></strong><span>คำอธิบายใส่ที่นี่</span></article>
+        </div>
+      </div>
+      <footer class="citation">แหล่งที่มาของข้อมูลใส่ที่นี่</footer>
+    </section>
+
+    <section class="slide slide-process" data-title="หัวข้อสไลด์กริดที่นี่" aria-hidden="true">
+      <header class="slide-header">
+        <div><p class="eyebrow" data-reveal>หมวดหมู่ใส่ที่นี่</p><h2 data-reveal>หัวข้อสไลด์กริดที่นี่</h2></div>
+        <span class="section-number">03</span>
+      </header>
+      <div class="process-grid">
+        <article data-reveal><span>01</span><i>⌕</i><h3>หัวข้อย่อยที่นี่</h3><p>รายละเอียดสั้นใส่ที่นี่</p></article>
+        <article data-reveal><span>02</span><i>◎</i><h3>หัวข้อย่อยที่นี่</h3><p>รายละเอียดสั้นใส่ที่นี่</p></article>
+        <article data-reveal><span>03</span><i>◇</i><h3>หัวข้อย่อยที่นี่</h3><p>รายละเอียดสั้นใส่ที่นี่</p></article>
+      </div>
+      <p class="process-status" data-reveal><span>คำเน้นสั้นใส่ที่นี่</span> ข้อความสรุปใส่ที่นี่</p>
+    </section>
+
+    <nav class="presenter-ui" aria-label="ตัวควบคุมงานนำเสนอ" data-no-nav>
+      <button id="toggle-ui" type="button" title="ซ่อนตัวควบคุม (H)" aria-label="ซ่อนตัวควบคุม">×</button>
+      <button id="prev-slide" type="button" aria-label="สไลด์ก่อนหน้า">←</button>
+      <div class="slide-status"><span id="current-slide">01</span><i></i><span>03</span></div>
+      <button id="next-slide" type="button" aria-label="สไลด์ถัดไป">→</button>
+      <button id="fullscreen" type="button" title="เต็มหน้าจอ (F)" aria-label="เปิดเต็มหน้าจอ">⛶</button>
+    </nav>
+    <button class="ui-restore" id="restore-ui" type="button" aria-label="แสดงตัวควบคุม" data-no-nav>•••</button>
+    <div class="progress-track" aria-hidden="true"><i id="progress-bar"></i></div>
+    <div class="sr-only" aria-live="polite" id="slide-announcer"></div>
+  </main>
+  <noscript>งานนำเสนอนี้ต้องเปิด JavaScript เพื่อใช้การนำทางและภาพเคลื่อนไหว</noscript>
+  <script src="app.js"></script>
+</body>
+</html>
