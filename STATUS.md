@@ -1,12 +1,12 @@
 # STATUS
 
-updated: 2026-07-30 03:58:53 +07
+updated: 2026-07-31 03:52:51 +07
 repo: `titankill34-png/portfolio`
 worker: `claude`
-phase: **idle**
+phase: **running**
+current issue: #22 — T13 homepage: QR theme fix + SVG mascot + animations (model `claude-sonnet-5`)
 
 ## Open queue
-- #20 T11 เปลี่ยนดีไซน์เป็น cyberpunk gaming มีสีสันและอนิเมชัน [needs-review]
+- #22 T13 homepage: QR theme fix + SVG mascot + animations [task-running]
 
 ## Open PRs
-- #21 T11: Cyberpunk gaming redesign for index.html (`task/20-cyberpunk-gaming-redesign`)
